@@ -9,15 +9,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class AuthenticatedUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
+    private User user;
 
-    private String username;
-    private String password;
-    private boolean isEnabled;
+    public AuthenticatedUser(User user) {
+	this.user = user;
+    }
 
-    public AuthenticatedUser(String username, String password, boolean isEnabled) {
-	this.username = username;
-	this.password = password;
-	this.isEnabled = isEnabled;
+    public User getUser() {
+	return user;
+    }
+
+    public Long getId() {
+	return user.getId();
     }
 
     @Override
@@ -27,12 +30,12 @@ public class AuthenticatedUser implements UserDetails {
 
     @Override
     public String getPassword() {
-	return password;
+	return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-	return username;
+	return user.getUsername();
     }
 
     @Override
@@ -52,6 +55,6 @@ public class AuthenticatedUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-	return isEnabled;
+	return user.getActive();
     }
 }

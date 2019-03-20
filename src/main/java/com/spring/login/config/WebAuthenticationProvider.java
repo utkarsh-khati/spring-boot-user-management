@@ -10,19 +10,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import com.spring.login.model.AuthenticatedUser;
+
 @Component
 public class WebAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-	String login = authentication.getName();
+	String username = authentication.getName();
 	String password = String.valueOf(authentication.getCredentials());
-	System.out.println("----------------in here");
-	System.out.println(login + " " + password);
-	if (Objects.equals(login, "user")) {
+	// AuthenticatedUser authenticatedUser = new AuthenticatedUser(username,
+	// password, isEnabled);
+	if (Objects.equals(username, "user")) {
 	    if (Objects.equals(password, "password")) {
-		return new UsernamePasswordAuthenticationToken(login, password, new ArrayList<>());
+		return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
 	    } else {
 		throw new BadCredentialsException("Bad Credentials");
 	    }
