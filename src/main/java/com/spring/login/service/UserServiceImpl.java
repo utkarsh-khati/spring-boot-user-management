@@ -1,17 +1,15 @@
 package com.spring.login.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.login.model.AuthenticatedUser;
 import com.spring.login.model.Role;
 import com.spring.login.model.User;
 import com.spring.login.repository.RoleRepository;
@@ -50,44 +48,6 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(username);
-		return new UserDetails() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isEnabled() {
-				return user.getActive() == 1;
-			}
-
-			@Override
-			public boolean isCredentialsNonExpired() {
-				return true;
-			}
-
-			@Override
-			public boolean isAccountNonLocked() {
-				return true;
-			}
-
-			@Override
-			public boolean isAccountNonExpired() {
-				return true;
-			}
-
-			@Override
-			public String getUsername() {
-				return user.getEmail();
-			}
-
-			@Override
-			public String getPassword() {
-				return user.getPassword();
-			}
-
-			@Override
-			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return new ArrayList<GrantedAuthority>();
-			}
-		};
+		return new AuthenticatedUser(user);
 	}
 }

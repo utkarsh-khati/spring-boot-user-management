@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "com.spring.login")
 public class SpringLoginApp {
 
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(SpringLoginApp.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
-    }
+	public static void main(String[] args) {
+		SpringApplication app = new SpringApplication(SpringLoginApp.class);
+		app.setBannerMode(Banner.Mode.OFF);
+		app.run(args);
+	}
 }
